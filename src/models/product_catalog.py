@@ -3,6 +3,7 @@ from pydantic import BaseModel, Field
 from typing import List
 
 class ProductOffering(BaseModel):
+    id: str | None = None
     name: str
     description: str | None = None
     lifecycle_status: str | None = Field(None, alias="lifecycle_status")
@@ -12,7 +13,7 @@ class ProductOffering(BaseModel):
     sales_channels: List[str] | None = None
 
 class ProductSpecification(BaseModel):
-    id: str
+    id: str | None = None
     version: str | None = None
     baseType: str | None = Field(None, alias="@baseType")
     schemaLocation: str | None = Field(None, alias="@schemaLocation")
@@ -38,7 +39,7 @@ class ProductCharacteristicValue(BaseModel):
     isDefault: bool | None = None
 
 class ProductCharacteristic(BaseModel):
-    id: str
+    id: str | None = None
     baseType: str | None = Field(None, alias="@baseType")
     schemaLocation: str | None = Field(None, alias="@schemaLocation")
     type_: str | None = Field(None, alias="@type")
@@ -60,7 +61,7 @@ class ProductCharacteristic(BaseModel):
     valueType: str | None = None
 
 class ProductPrice(BaseModel):
-    id: str
+    id: str | None = None
     version: str | None = None
     description: str | None = None
     isBundle: bool | None = None

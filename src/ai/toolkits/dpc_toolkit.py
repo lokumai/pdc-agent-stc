@@ -4,11 +4,15 @@ from src.db.repositories.product_offering_repository import ProductOfferingRepos
 from src.db.repositories.product_specification_repository import ProductSpecificationRepository
 from src.db.repositories.product_characteristic_repository import ProductCharacteristicRepository
 from src.db.repositories.product_price_repository import ProductPriceRepository
+
+import uuid
 from src.models.product_catalog import ProductOffering, ProductSpecification, ProductCharacteristic, ProductPrice
 
 
+
+
 @tool
-async def upsert_product_offering(offering: ProductOffering) -> str:
+async def upsert_product_offering(offering: ProductOffering) -> dict:
     """
     Save or update a product offering in the database.
     Use this to create or modify product offerings.
@@ -17,10 +21,12 @@ async def upsert_product_offering(offering: ProductOffering) -> str:
         offering (ProductOffering): ProductOffering model instance.
 
     Returns:
-        str: Confirmation message.
+        dict: Confirmation message and offering details (including generated id if applicable).
     """
+    if not offering.id:
+        offering.id = str(uuid.uuid4())
     await ProductOfferingRepository.upsert_offering(offering)
-    return "Product offering upserted."
+    return {"message": "Product offering upserted.", "offering": offering.model_dump()}
 
 
 @tool
@@ -40,8 +46,9 @@ async def filter_product_offerings(filter_dict: dict) -> list:
     return [r.model_dump() for r in results]
 
 
+
 @tool
-async def upsert_product_specification(spec: ProductSpecification) -> str:
+async def upsert_product_specification(spec: ProductSpecification) -> dict:
     """
     Save or update a product specification in the database.
     Use this to create or modify product specifications.
@@ -50,10 +57,12 @@ async def upsert_product_specification(spec: ProductSpecification) -> str:
         spec (ProductSpecification): ProductSpecification model instance.
 
     Returns:
-        str: Confirmation message.
+        dict: Confirmation message and specification details (including generated id if applicable).
     """
+    if not spec.id:
+        spec.id = str(uuid.uuid4())
     await ProductSpecificationRepository.upsert_specification(spec)
-    return "Product specification upserted."
+    return {"message": "Product specification upserted.", "specification": spec.model_dump()}
 
 
 @tool
@@ -73,8 +82,9 @@ async def filter_product_specifications(filter_dict: dict) -> list:
     return [r.model_dump() for r in results]
 
 
+
 @tool
-async def upsert_product_characteristic(char: ProductCharacteristic) -> str:
+async def upsert_product_characteristic(char: ProductCharacteristic) -> dict:
     """
     Save or update a product characteristic in the database.
     Use this to create or modify product characteristics.
@@ -83,10 +93,12 @@ async def upsert_product_characteristic(char: ProductCharacteristic) -> str:
         char (ProductCharacteristic): ProductCharacteristic model instance.
 
     Returns:
-        str: Confirmation message.
+        dict: Confirmation message and characteristic details (including generated id if applicable).
     """
+    if not char.id:
+        char.id = str(uuid.uuid4())
     await ProductCharacteristicRepository.upsert_characteristic(char)
-    return "Product characteristic upserted."
+    return {"message": "Product characteristic upserted.", "characteristic": char.model_dump()}
 
 
 @tool
@@ -106,8 +118,9 @@ async def filter_product_characteristics(filter_dict: dict) -> list:
     return [r.model_dump() for r in results]
 
 
+
 @tool
-async def upsert_product_price(price: ProductPrice) -> str:
+async def upsert_product_price(price: ProductPrice) -> dict:
     """
     Save or update a product price in the database.
     Use this to create or modify product prices.
@@ -116,10 +129,12 @@ async def upsert_product_price(price: ProductPrice) -> str:
         price (ProductPrice): ProductPrice model instance.
 
     Returns:
-        str: Confirmation message.
+        dict: Confirmation message and price details (including generated id if applicable).
     """
+    if not price.id:
+        price.id = str(uuid.uuid4())
     await ProductPriceRepository.upsert_price(price)
-    return "Product price upserted."
+    return {"message": "Product price upserted.", "price": price.model_dump()}
 
 
 @tool
@@ -144,52 +159,52 @@ async def filter_product_prices(filter_dict: dict) -> list:
 # ============================================================
 
 
-# Product Offering List Tool
-@tool
-async def list_product_offerings() -> list:
-    """
-    List all product offerings in the database.
-    Returns:
-        list: List of all product offerings as dictionaries.
-    """
-    results = await ProductOfferingRepository.list_offerings()
-    return [r.model_dump() for r in results]
+# # Product Offering List Tool
+# @tool
+# async def list_product_offerings() -> list:
+#     """
+#     List all product offerings in the database.
+#     Returns:
+#         list: List of all product offerings as dictionaries.
+#     """
+#     results = await ProductOfferingRepository.list_offerings()
+#     return [r.model_dump() for r in results]
 
 
-# Product Specification List Tool
-@tool
-async def list_product_specifications() -> list:
-    """
-    List all product specifications in the database.
-    Returns:
-        list: List of all product specifications as dictionaries.
-    """
-    results = await ProductSpecificationRepository.list_specifications()
-    return [r.model_dump() for r in results]
+# # Product Specification List Tool
+# @tool
+# async def list_product_specifications() -> list:
+#     """
+#     List all product specifications in the database.
+#     Returns:
+#         list: List of all product specifications as dictionaries.
+#     """
+#     results = await ProductSpecificationRepository.list_specifications()
+#     return [r.model_dump() for r in results]
 
 
-# Product Characteristic List Tool
-@tool
-async def list_product_characteristics() -> list:
-    """
-    List all product characteristics in the database.
-    Returns:
-        list: List of all product characteristics as dictionaries.
-    """
-    results = await ProductCharacteristicRepository.list_characteristics()
-    return [r.model_dump() for r in results]
+# # Product Characteristic List Tool
+# @tool
+# async def list_product_characteristics() -> list:
+#     """
+#     List all product characteristics in the database.
+#     Returns:
+#         list: List of all product characteristics as dictionaries.
+#     """
+#     results = await ProductCharacteristicRepository.list_characteristics()
+#     return [r.model_dump() for r in results]
 
 
-# Product Price List Tool
-@tool
-async def list_product_prices() -> list:
-    """
-    List all product prices in the database.
-    Returns:
-        list: List of all product prices as dictionaries.
-    """
-    results = await ProductPriceRepository.list_prices()
-    return [r.model_dump() for r in results]
+# # Product Price List Tool
+# @tool
+# async def list_product_prices() -> list:
+#     """
+#     List all product prices in the database.
+#     Returns:
+#         list: List of all product prices as dictionaries.
+#     """
+#     results = await ProductPriceRepository.list_prices()
+#     return [r.model_dump() for r in results]
 
 
 class DPCToolkit:
@@ -199,14 +214,14 @@ class DPCToolkit:
         return [
             upsert_product_offering,
             filter_product_offerings,
-            list_product_offerings,
             upsert_product_specification,
             filter_product_specifications,
-            list_product_specifications,
             upsert_product_characteristic,
             filter_product_characteristics,
-            list_product_characteristics,
             upsert_product_price,
             filter_product_prices,
-            list_product_prices,
+            # list_product_offerings,
+            # list_product_specifications,
+            # list_product_prices,
+            # list_product_characteristics,
         ]
