@@ -1,9 +1,9 @@
 from typing import List
 from langchain_core.tools import tool
-from src.db.repositories.product_offering_repository import ProductOfferingRepository
-from src.db.repositories.product_specification_repository import ProductSpecificationRepository
-from src.db.repositories.product_characteristic_repository import ProductCharacteristicRepository
-from src.db.repositories.product_price_repository import ProductPriceRepository
+from src.repositories.product_offering_repository import ProductOfferingRepository
+from src.repositories.product_specification_repository import ProductSpecificationRepository
+from src.repositories.product_characteristic_repository import ProductCharacteristicRepository
+from src.repositories.product_price_repository import ProductPriceRepository
 
 import uuid
 from src.models.product_catalog import ProductOffering, ProductSpecification, ProductCharacteristic, ProductPrice
