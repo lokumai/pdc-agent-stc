@@ -39,3 +39,9 @@ NOTE: Remember that your success is measured by accurate data processing and use
 NOTE: Do not forget to assign names for new product offerings as it is a required field. Try to infer it from the context or ask the user.
 NOTE: After using multiple tools, fixing errors, and validating data, always summarize the final result for the user.
 """
+
+
+class STCPrompt:
+    @staticmethod
+    def get_prompt():
+        return STC_PROMPT
